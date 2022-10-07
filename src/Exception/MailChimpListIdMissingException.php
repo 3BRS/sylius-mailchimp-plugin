@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\MailChimpPlugin\Exception;
+namespace ThreeBRS\SyliusMailChimpPlugin\Exception;
 
 class MailChimpListIdMissingException extends \Exception
 {

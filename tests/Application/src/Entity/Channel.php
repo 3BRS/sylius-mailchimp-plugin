@@ -14,5 +14,5 @@ use Sylius\Component\Core\Model\Channel as CoreChannel;
  */
 class Channel extends CoreChannel
 {
-	use ChannelMailChimpSettingsTrait;
+    use ChannelMailChimpSettingsTrait;
 }

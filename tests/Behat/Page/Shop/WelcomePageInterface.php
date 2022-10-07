@@ -8,5 +8,5 @@ use Sylius\Behat\Page\PageInterface;
 
 interface WelcomePageInterface extends PageInterface
 {
-	public function getGreeting(): string;
+    public function getGreeting(): string;
 }

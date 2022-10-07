@@ -2,156 +2,158 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\MailChimpPlugin\Service;
+namespace ThreeBRS\SyliusMailChimpPlugin\Service;
 
 use DrewM\MailChimp\MailChimp;
-use MangoSylius\MailChimpPlugin\Exception\MailChimpException;
-use MangoSylius\MailChimpPlugin\Exception\MailChimpInvalidErrorResponseException;
-use MangoSylius\MailChimpPlugin\Model\MailChimpLanguageEnum;
-use MangoSylius\MailChimpPlugin\Model\MailChimpSubscriptionStatusEnum;
 use Nette\Utils\Validators;
 use Symfony\Component\HttpFoundation\Response;
+use ThreeBRS\SyliusMailChimpPlugin\Exception\MailChimpException;
+use ThreeBRS\SyliusMailChimpPlugin\Exception\MailChimpInvalidErrorResponseException;
+use ThreeBRS\SyliusMailChimpPlugin\Model\MailChimpLanguageEnum;
+use ThreeBRS\SyliusMailChimpPlugin\Model\MailChimpSubscriptionStatusEnum;
 
 class MailChimpManager
 {
-	/** @var MailChimp|null */
-	private $mailChimp;
+    /** @var MailChimp|null */
+    private $mailChimp;
 
-	public function __construct(MailChimpApiClientProvider $mailChimpApiClientProvider)
-	{
-		$this->mailChimp = $mailChimpApiClientProvider->getClient();
-	}
+    public function __construct(MailChimpApiClientProvider $mailChimpApiClientProvider)
+    {
+        $this->mailChimp = $mailChimpApiClientProvider->getClient();
+    }
 
-	public function isEmailSubscribedToList(string $email, string $listId): bool
-	{
-		assert($this->mailChimp instanceof MailChimp);
-		assert(Validators::isEmail($email));
+    public function isEmailSubscribedToList(string $email, string $listId): bool
+    {
+        assert($this->mailChimp instanceof MailChimp);
+        assert(Validators::isEmail($email));
 
-		$result = $this->mailChimp->get("lists/$listId/members/" . $this->mailChimp->subscriberHash($email));
+        $result = $this->mailChimp->get("lists/$listId/members/" . $this->mailChimp->subscriberHash($email));
 
-		if (!$this->mailChimp->success()) {
-			if (($this->mailChimp->getLastResponse()['headers']['http_code'] ?? null) === Response::HTTP_NOT_FOUND) {
-				return false;
-			}
+        if (!$this->mailChimp->success()) {
+            if (($this->mailChimp->getLastResponse()['headers']['http_code'] ?? null) === Response::HTTP_NOT_FOUND) {
+                return false;
+            }
 
-			$this->throwMailChimpError($this->mailChimp->getLastResponse());
-		}
+            $this->throwMailChimpError($this->mailChimp->getLastResponse());
+        }
 
-		assert($result !== false);
+        assert($result !== false);
 
-		return $result['status'] === MailChimpSubscriptionStatusEnum::SUBSCRIBED;
-	}
+        return $result['status'] === MailChimpSubscriptionStatusEnum::SUBSCRIBED;
+    }
 
-	/**
-	 * @param string $localeCode MailChimpLanguageEnum::SUPPORTED_LANGUAGES
-	 *
-	 * @return array<mixed>|null
-	 *
-	 * @throws MailChimpException
-	 */
-	public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled): ?array
-	{
-		assert($this->mailChimp instanceof MailChimp);
-		assert(Validators::isEmail($email));
-		assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
-		$subscriberHash = $this->mailChimp->subscriberHash($email);
+    /**
+     * @param string $localeCode MailChimpLanguageEnum::SUPPORTED_LANGUAGES
+     *
+     * @return array<mixed>|null
+     *
+     * @throws MailChimpException
+     */
+    public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled): ?array
+    {
+        assert($this->mailChimp instanceof MailChimp);
+        assert(Validators::isEmail($email));
+        assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
+        $subscriberHash = $this->mailChimp->subscriberHash($email);
 
-		if ($this->isEmailSubscribedToList($email, $listId)) {
-			return null;
-		}
+        if ($this->isEmailSubscribedToList($email, $listId)) {
+            return null;
+        }
 
-		$result = $this->mailChimp->put("lists/$listId/members/$subscriberHash",
-			[
-				'email_address' => $email,
-				'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
-				'language' => $localeCode,
-			]
-		);
+        $result = $this->mailChimp->put(
+            "lists/$listId/members/$subscriberHash",
+            [
+                'email_address' => $email,
+                'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
+                'language' => $localeCode,
+            ]
+        );
 
-		if (!$this->mailChimp->success()) {
-			$this->throwMailChimpError($this->mailChimp->getLastResponse());
-		}
+        if (!$this->mailChimp->success()) {
+            $this->throwMailChimpError($this->mailChimp->getLastResponse());
+        }
 
-		return is_array($result) ? $result : null;
-	}
+        return is_array($result) ? $result : null;
+    }
 
-	/**
-	 * @return array<mixed>|null
-	 */
-	public function unsubscribeFromList(string $email, string $listId): ?array
-	{
-		assert($this->mailChimp instanceof MailChimp);
-		assert(Validators::isEmail($email));
+    /**
+     * @return array<mixed>|null
+     */
+    public function unsubscribeFromList(string $email, string $listId): ?array
+    {
+        assert($this->mailChimp instanceof MailChimp);
+        assert(Validators::isEmail($email));
 
-		$subscriberHash = $this->mailChimp->subscriberHash($email);
+        $subscriberHash = $this->mailChimp->subscriberHash($email);
 
-		$result = $this->mailChimp->patch("lists/$listId/members/$subscriberHash",
-			[
-				'status' => MailChimpSubscriptionStatusEnum::UNSUBSCRIBED,
-			]
-		);
+        $result = $this->mailChimp->patch(
+            "lists/$listId/members/$subscriberHash",
+            [
+                'status' => MailChimpSubscriptionStatusEnum::UNSUBSCRIBED,
+            ]
+        );
 
-		if (!$this->mailChimp->success()) {
-			$this->throwMailChimpError($this->mailChimp->getLastResponse());
-		}
+        if (!$this->mailChimp->success()) {
+            $this->throwMailChimpError($this->mailChimp->getLastResponse());
+        }
 
-		return is_array($result) ? $result : null;
-	}
+        return is_array($result) ? $result : null;
+    }
 
-	/**
-	 * @return array<mixed>
-	 */
-	public function getLists(): array
-	{
-		$mailChimp = $this->mailChimp;
-		if ($mailChimp === null) {
-			return [];
-		}
+    /**
+     * @return array<mixed>
+     */
+    public function getLists(): array
+    {
+        $mailChimp = $this->mailChimp;
+        if ($mailChimp === null) {
+            return [];
+        }
 
-		$lists = [];
-		$count = 10;
-		$page = 0;
+        $lists = [];
+        $count = 10;
+        $page = 0;
 
-		do {
-			$result = $mailChimp->get('lists', [
-				'offset' => $page * $count,
-				'count' => $count,
-			]);
+        do {
+            $result = $mailChimp->get('lists', [
+                'offset' => $page * $count,
+                'count' => $count,
+            ]);
 
-			if (!$mailChimp->success()) {
-				$this->throwMailChimpError($mailChimp->getLastResponse());
-			}
+            if (!$mailChimp->success()) {
+                $this->throwMailChimpError($mailChimp->getLastResponse());
+            }
 
-			++$page;
+            ++$page;
 
-			assert($result !== false);
-			foreach ($result['lists'] as $list) {
-				$lists[$list['id']] = $list['name'];
-			}
-		} while ($page * $count <= $result['total_items']);
-		asort($lists);
+            assert($result !== false);
+            foreach ($result['lists'] as $list) {
+                $lists[$list['id']] = $list['name'];
+            }
+        } while ($page * $count <= $result['total_items']);
+        asort($lists);
 
-		return $lists;
-	}
+        return $lists;
+    }
 
-	/**
-	 * @param array<mixed> $errorResponse
-	 */
-	private function throwMailChimpError(array $errorResponse): void
-	{
-		if ($errorResponse['body'] === null) {
-			throw new MailChimpInvalidErrorResponseException();
-		}
+    /**
+     * @param array<mixed> $errorResponse
+     */
+    private function throwMailChimpError(array $errorResponse): void
+    {
+        if ($errorResponse['body'] === null) {
+            throw new MailChimpInvalidErrorResponseException();
+        }
 
-		$errorArray = json_decode($errorResponse['body'], true);
+        $errorArray = json_decode($errorResponse['body'], true);
 
-		throw new MailChimpException(
-			$errorArray['status'],
-			$errorArray['detail'],
-			$errorArray['type'],
-			$errorArray['title'],
-			$errorArray['errors'] ?? null,
-			$errorArray['instance']
-		);
-	}
+        throw new MailChimpException(
+            $errorArray['status'],
+            $errorArray['detail'],
+            $errorArray['type'],
+            $errorArray['title'],
+            $errorArray['errors'] ?? null,
+            $errorArray['instance']
+        );
+    }
 }

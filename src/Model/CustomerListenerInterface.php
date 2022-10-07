@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\MailChimpPlugin\Model;
+namespace ThreeBRS\SyliusMailChimpPlugin\Model;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 interface CustomerListenerInterface
 {
-	public function syncSubscriptionToMailChimp(GenericEvent $event): void;
+    public function syncSubscriptionToMailChimp(GenericEvent $event): void;
 
-	public function syncSubstriptionStateFromMailChimp(InteractiveLoginEvent $event): void;
+    public function syncSubstriptionStateFromMailChimp(InteractiveLoginEvent $event): void;
 }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\MailChimpPlugin\Service;
+namespace ThreeBRS\SyliusMailChimpPlugin\Service;
 
 interface ChannelMailChimpSettingsProviderInterface
 {
-	public function isMailChimpEnabled(): bool;
+    public function isMailChimpEnabled(): bool;
 
-	public function getListId(): ?string;
+    public function getListId(): ?string;
 
-	public function isDoubleOptInEnabled(): bool;
+    public function isDoubleOptInEnabled(): bool;
 }
