@@ -35,14 +35,14 @@ final class MailChimpChannelTypeExtension extends AbstractTypeExtension
     {
         $builder
             ->add('isMailChimpEnabled', CheckboxType::class, [
-                'label' => 'mango.mailChimp.admin.form.channel.enabled.label',
+                'label' => 'threebrs.mailChimp.admin.form.channel.enabled.label',
             ])
             ->add('isMailChimpListDoubleOptInEnabled', CheckboxType::class, [
-                'label' => 'mango.mailChimp.admin.form.channel.double_optin.label',
+                'label' => 'threebrs.mailChimp.admin.form.channel.double_optin.label',
             ])
             ->add('mailChimpListId', ChoiceType::class, [
-                'label' => 'mango.mailChimp.admin.form.channel.list.label',
-                'placeholder' => 'mango.mailChimp.admin.form.channel.list.placeholder',
+                'label' => 'threebrs.mailChimp.admin.form.channel.list.label',
+                'placeholder' => 'threebrs.mailChimp.admin.form.channel.list.placeholder',
                 'choice_loader' => new CallbackChoiceLoader(function () {
                     return array_flip($this->mailChimpManager->getLists());
                 }),
