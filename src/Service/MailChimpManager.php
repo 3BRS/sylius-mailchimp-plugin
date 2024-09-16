@@ -23,7 +23,7 @@ class MailChimpManager implements MailChimpManagerInterface
     public function isEmailSubscribedToList(string $email, string $listId): bool
     {
         assert($this->mailChimp instanceof MailChimp);
-        assert(!filter_var($email, FILTER_VALIDATE_EMAIL));
+            assert(filter_var($email, FILTER_VALIDATE_EMAIL));
 
         $result = $this->mailChimp->get("lists/$listId/members/" . $this->mailChimp->subscriberHash($email));
 
@@ -50,7 +50,7 @@ class MailChimpManager implements MailChimpManagerInterface
     public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled, array $data = []): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
-        assert(!filter_var($email, FILTER_VALIDATE_EMAIL));
+            assert(filter_var($email, FILTER_VALIDATE_EMAIL));
         assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
@@ -87,7 +87,7 @@ class MailChimpManager implements MailChimpManagerInterface
     public function unsubscribeFromList(string $email, string $listId): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
-        assert(!filter_var($email, FILTER_VALIDATE_EMAIL));
+            assert(filter_var($email, FILTER_VALIDATE_EMAIL));
 
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
