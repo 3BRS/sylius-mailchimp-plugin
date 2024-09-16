@@ -54,16 +54,15 @@ class MailChimpManager implements MailChimpManagerInterface
         assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
-        if ($this->isEmailSubscribedToList($email, $listId)) {
-            return null;
-        }
-
         $options = [
             'email_address' => $email,
             'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
             'language' => $localeCode,
-            'merge_fields' => $data,
         ];
+
+        if (count($data) > 0) {
+            $options['merge_fields'] = $data;
+        }
 
         if ($this->isEmailSubscribedToList($email, $listId)) {
             $result = $this->mailChimp->patch("lists/$listId/members/$subscriberHash", $options);
