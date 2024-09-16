@@ -12,26 +12,18 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use ThreeBRS\SyliusMailChimpPlugin\Exception\MailChimpException;
 use ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProviderInterface;
-use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpChannelSubscriber;
+use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpChannelSubscriberInterface;
 
 class CustomerListener implements CustomerListenerInterface
 {
-    /** @var MailChimpChannelSubscriber */
-    private $mailChimpChannelSubscriber;
 
-    /** @var LoggerInterface */
-    private $logger;
-
-    /** @var bool */
-    private $isMailChimpEnabled;
+    private bool $isMailChimpEnabled = false;
 
     public function __construct(
-        MailChimpChannelSubscriber $mailChimpChannelSubscriber,
-        LoggerInterface $logger,
+        private readonly MailChimpChannelSubscriberInterface $mailChimpChannelSubscriber,
+        private readonly LoggerInterface $logger,
         ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider
     ) {
-        $this->mailChimpChannelSubscriber = $mailChimpChannelSubscriber;
-        $this->logger = $logger;
         $this->isMailChimpEnabled = $channelMailChimpSettingsProvider->isMailChimpEnabled() && $channelMailChimpSettingsProvider->getListId() !== null;
     }
 

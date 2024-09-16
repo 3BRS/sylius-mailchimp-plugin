@@ -8,11 +8,9 @@ use DrewM\MailChimp\MailChimp;
 
 class MailChimpApiClientProvider implements MailChimpApiClientProviderInterface
 {
-    /** @var string|null */
-    private $apiKey;
+    private ?string $apiKey;
 
-    /** @var MailChimp|null */
-    private $client;
+    private ?MailChimp $client = null;
 
     /**
      * @param array<mixed> $config

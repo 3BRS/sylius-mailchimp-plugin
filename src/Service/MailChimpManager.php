@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace ThreeBRS\SyliusMailChimpPlugin\Service;
 
 use DrewM\MailChimp\MailChimp;
-use Nette\Utils\Validators;
 use Symfony\Component\HttpFoundation\Response;
 use ThreeBRS\SyliusMailChimpPlugin\Exception\MailChimpException;
 use ThreeBRS\SyliusMailChimpPlugin\Exception\MailChimpInvalidErrorResponseException;
 use ThreeBRS\SyliusMailChimpPlugin\Model\MailChimpLanguageEnum;
 use ThreeBRS\SyliusMailChimpPlugin\Model\MailChimpSubscriptionStatusEnum;
 
-class MailChimpManager
+class MailChimpManager implements MailChimpManagerInterface
 {
-    /** @var MailChimp|null */
-    private $mailChimp;
+    private ?MailChimp $mailChimp;
 
     public function __construct(MailChimpApiClientProvider $mailChimpApiClientProvider)
     {
@@ -25,7 +23,7 @@ class MailChimpManager
     public function isEmailSubscribedToList(string $email, string $listId): bool
     {
         assert($this->mailChimp instanceof MailChimp);
-        assert(Validators::isEmail($email));
+        assert(!filter_var($email, FILTER_VALIDATE_EMAIL));
 
         $result = $this->mailChimp->get("lists/$listId/members/" . $this->mailChimp->subscriberHash($email));
 
@@ -49,10 +47,10 @@ class MailChimpManager
      *
      * @throws MailChimpException
      */
-    public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled): ?array
+    public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled, array $data = []): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
-        assert(Validators::isEmail($email));
+        assert(!filter_var($email, FILTER_VALIDATE_EMAIL));
         assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
@@ -60,12 +58,19 @@ class MailChimpManager
             return null;
         }
 
+        $mergeFields = [];
+        if (count($data)) {
+            $mergeFields['merge_fields'] = $mergeFields;
+        }
+
         $result = $this->mailChimp->put(
             "lists/$listId/members/$subscriberHash",
             [
-                'email_address' => $email,
-                'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
-                'language' => $localeCode,
+                array_merge([
+                    'email_address' => $email,
+                    'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
+                    'language' => $localeCode,
+                ], $mergeFields)
             ]
         );
 
@@ -82,7 +87,7 @@ class MailChimpManager
     public function unsubscribeFromList(string $email, string $listId): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
-        assert(Validators::isEmail($email));
+        assert(!filter_var($email, FILTER_VALIDATE_EMAIL));
 
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 

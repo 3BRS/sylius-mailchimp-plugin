@@ -11,26 +11,17 @@ use ThreeBRS\SyliusMailChimpPlugin\Entity\ChannelMailChimpSettingsInterface;
 
 class ChannelMailChimpSettingsProvider implements ChannelMailChimpSettingsProviderInterface
 {
-    /** @var ChannelMailChimpSettingsInterface|null */
-    private $channel;
-
     public function __construct(
-        ChannelContextInterface $channelContext,
-        LoggerInterface $logger
+        private readonly ChannelContextInterface $channelContext,
     ) {
-        try {
-            $channel = $channelContext->getChannel();
-            assert($channel instanceof ChannelMailChimpSettingsInterface);
-            $this->channel = $channel;
-        } catch (ChannelNotFoundException $e) {
-            $logger->warning('ChannelMailchimpSettingsProvider did not get channel', ['exception' => $e]);
-        }
+
     }
 
     public function getListId(): ?string
     {
-        if ($this->channel) {
-            return $this->channel->getMailchimpListId();
+        $channel = $this->channelContext->getChannel();
+        if ($channel instanceof ChannelMailChimpSettingsInterface) {
+            return $channel->getMailchimpListId();
         }
 
         return null;
@@ -38,8 +29,9 @@ class ChannelMailChimpSettingsProvider implements ChannelMailChimpSettingsProvid
 
     public function isDoubleOptInEnabled(): bool
     {
-        if ($this->channel) {
-            return $this->channel->isMailchimpListDoubleOptInEnabled();
+        $channel = $this->channelContext->getChannel();
+        if ($channel instanceof ChannelMailChimpSettingsInterface) {
+            return $channel->isMailchimpListDoubleOptInEnabled();
         }
 
         return false;
@@ -47,8 +39,9 @@ class ChannelMailChimpSettingsProvider implements ChannelMailChimpSettingsProvid
 
     public function isMailchimpEnabled(): bool
     {
-        if ($this->channel) {
-            return $this->channel->isMailchimpEnabled();
+        $channel = $this->channelContext->getChannel();
+        if ($channel instanceof ChannelMailChimpSettingsInterface) {
+            return $channel->isMailchimpEnabled();
         }
 
         return false;

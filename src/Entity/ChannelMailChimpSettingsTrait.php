@@ -9,22 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
 trait ChannelMailChimpSettingsTrait
 {
     /**
-     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private $mailChimpListId;
+    private ?string $mailChimpListId = null;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $isMailChimpListDoubleOptInEnabled = false;
+    private bool $isMailChimpListDoubleOptInEnabled = false;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", options={"default" : false})
      */
-    private $isMailChimpEnabled = false;
+    private bool $isMailChimpEnabled = false;
 
     public function setMailChimpListId(?string $listId): void
     {

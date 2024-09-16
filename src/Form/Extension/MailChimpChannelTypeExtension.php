@@ -10,16 +10,13 @@ use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManager;
+use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface;
 
 final class MailChimpChannelTypeExtension extends AbstractTypeExtension
 {
-    /** @var MailChimpManager */
-    private $mailChimpManager;
 
-    public function __construct(MailChimpManager $mailChimpManager)
+    public function __construct(private readonly MailChimpManagerInterface $mailChimpManager)
     {
-        $this->mailChimpManager = $mailChimpManager;
     }
 
     /** @return array<string> */
