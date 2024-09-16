@@ -23,7 +23,7 @@ class MailChimpManager implements MailChimpManagerInterface
     public function isEmailSubscribedToList(string $email, string $listId): bool
     {
         assert($this->mailChimp instanceof MailChimp);
-            assert(filter_var($email, FILTER_VALIDATE_EMAIL));
+        assert(filter_var($email, FILTER_VALIDATE_EMAIL));
 
         $result = $this->mailChimp->get("lists/$listId/members/" . $this->mailChimp->subscriberHash($email));
 
@@ -50,7 +50,7 @@ class MailChimpManager implements MailChimpManagerInterface
     public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled, array $data = []): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
-            assert(filter_var($email, FILTER_VALIDATE_EMAIL));
+        assert(filter_var($email, FILTER_VALIDATE_EMAIL));
         assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
@@ -58,21 +58,18 @@ class MailChimpManager implements MailChimpManagerInterface
             return null;
         }
 
-        $mergeFields = [];
-        if (count($data)) {
-            $mergeFields['merge_fields'] = $mergeFields;
-        }
+        $options = [
+            'email_address' => $email,
+            'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
+            'language' => $localeCode,
+            'merge_fields' => $data,
+        ];
 
-        $result = $this->mailChimp->put(
-            "lists/$listId/members/$subscriberHash",
-            [
-                array_merge([
-                    'email_address' => $email,
-                    'status' => $doubleOptInEnabled ? MailChimpSubscriptionStatusEnum::PENDING : MailChimpSubscriptionStatusEnum::SUBSCRIBED,
-                    'language' => $localeCode,
-                ], $mergeFields)
-            ]
-        );
+        if ($this->isEmailSubscribedToList($email, $listId)) {
+            $result = $this->mailChimp->patch("lists/$listId/members/$subscriberHash", $options);
+        } else {
+            $result = $this->mailChimp->put("lists/$listId/members/$subscriberHash", $options);
+        }
 
         if (!$this->mailChimp->success()) {
             $this->throwMailChimpError($this->mailChimp->getLastResponse());
@@ -87,7 +84,7 @@ class MailChimpManager implements MailChimpManagerInterface
     public function unsubscribeFromList(string $email, string $listId): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
-            assert(filter_var($email, FILTER_VALIDATE_EMAIL));
+        assert(filter_var($email, FILTER_VALIDATE_EMAIL));
 
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
