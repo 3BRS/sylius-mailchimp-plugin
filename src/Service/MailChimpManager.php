@@ -20,7 +20,7 @@ class MailChimpManager implements MailChimpManagerInterface
         $this->mailChimp = $mailChimpApiClientProvider->getClient();
     }
 
-    public function isEmailSubscribedToList(string $email, string $listId): bool
+    public function getContact(string $email, string $listId): ?array
     {
         assert($this->mailChimp instanceof MailChimp);
         assert(filter_var($email, FILTER_VALIDATE_EMAIL));
@@ -29,15 +29,27 @@ class MailChimpManager implements MailChimpManagerInterface
 
         if (!$this->mailChimp->success()) {
             if (($this->mailChimp->getLastResponse()['headers']['http_code'] ?? null) === Response::HTTP_NOT_FOUND) {
-                return false;
+                return null;
             }
 
             $this->throwMailChimpError($this->mailChimp->getLastResponse());
         }
 
-        assert($result !== false);
+        if ($result === false) {
+            return null;
+        }
 
-        return $result['status'] === MailChimpSubscriptionStatusEnum::SUBSCRIBED;
+        return $result;
+    }
+
+    public function isEmailSubscribedToList(string $email, string $listId): bool
+    {
+        $contact = $this->getContact($email, $listId);
+        if ($contact === null) {
+            false;
+        }
+
+        return $contact['status'] === MailChimpSubscriptionStatusEnum::SUBSCRIBED;
     }
 
     /**

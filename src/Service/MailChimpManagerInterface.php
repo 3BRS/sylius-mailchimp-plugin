@@ -8,6 +8,8 @@ use ThreeBRS\SyliusMailChimpPlugin\Exception\MailChimpException;
 
 interface MailChimpManagerInterface
 {
+    public function getContact(string $email, string $listId): ?array;
+
     public function isEmailSubscribedToList(string $email, string $listId): bool;
 
     /**

@@ -15,6 +15,16 @@ class MailChimpChannelSubscriber implements MailChimpChannelSubscriberInterface
     ) {
     }
 
+    public function getContact(string $email): ?array
+    {
+        $listId = $this->channelMailChimpSettingsProvider->getListId();
+        $isMailChimpEnabled = $this->channelMailChimpSettingsProvider->isMailChimpEnabled();
+
+        assert($isMailChimpEnabled && $listId !== null);
+
+        return $this->mailChimpManager->getContact($email, $listId);
+    }
+
     public function isSubscribed(string $email): bool
     {
         $listId = $this->channelMailChimpSettingsProvider->getListId();
