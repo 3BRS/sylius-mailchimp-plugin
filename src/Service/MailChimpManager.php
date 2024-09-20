@@ -46,7 +46,7 @@ class MailChimpManager implements MailChimpManagerInterface
     {
         $contact = $this->getContact($email, $listId);
         if ($contact === null) {
-            false;
+            return false;
         }
 
         return $contact['status'] === MailChimpSubscriptionStatusEnum::SUBSCRIBED;
