@@ -63,6 +63,8 @@ class MailChimpManager implements MailChimpManagerInterface
     {
         assert($this->mailChimp instanceof MailChimp);
         assert(filter_var($email, FILTER_VALIDATE_EMAIL));
+
+        $localeCode = substr($localeCode, 0, 2);
         assert(in_array($localeCode, MailChimpLanguageEnum::SUPPORTED_LANGUAGES, true));
         $subscriberHash = $this->mailChimp->subscriberHash($email);
 
