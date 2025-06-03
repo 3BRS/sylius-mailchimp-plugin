@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\MailChimpPlugin\Entity;
+namespace ThreeBRS\SyliusMailChimpPlugin\Entity;
 
 interface ChannelMailChimpSettingsInterface
 {
-	public function setMailChimpListId(?string $listId): void;
+    public function setMailChimpListId(?string $listId): void;
 
-	public function getMailChimpListId(): ?string;
+    public function getMailChimpListId(): ?string;
 
-	public function setIsMailChimpListDoubleOptInEnabled(bool $isDoubleOptInEnabled): void;
+    public function setIsMailChimpListDoubleOptInEnabled(bool $isDoubleOptInEnabled): void;
 
-	public function isMailChimpListDoubleOptInEnabled(): bool;
+    public function isMailChimpListDoubleOptInEnabled(): bool;
 
-	public function setIsMailChimpEnabled(bool $isMailChimpEnabled): void;
+    public function setIsMailChimpEnabled(bool $isMailChimpEnabled): void;
 
-	public function isMailChimpEnabled(): bool;
+    public function isMailChimpEnabled(): bool;
 }

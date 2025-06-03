@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\MangoSylius\MailChimpPlugin\Behat\Page\Shop;
+namespace Tests\Acme\SyliusExamplePlugin\Behat\Page\Shop;
 
-use Sylius\Behat\Page\PageInterface;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPageInterface;
 
-interface WelcomePageInterface extends PageInterface
+interface WelcomePageInterface extends SymfonyPageInterface
 {
-	public function getGreeting(): string;
+    public function getGreeting(): string;
 }

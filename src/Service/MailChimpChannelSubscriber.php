@@ -2,55 +2,55 @@
 
 declare(strict_types=1);
 
-namespace MangoSylius\MailChimpPlugin\Service;
+namespace ThreeBRS\SyliusMailChimpPlugin\Service;
 
 use Sylius\Component\Core\Context\ShopperContextInterface;
 
-class MailChimpChannelSubscriber
+class MailChimpChannelSubscriber implements MailChimpChannelSubscriberInterface
 {
-	/** @var MailChimpManager */
-	private $mailChimpManager;
+    public function __construct(
+        private readonly MailChimpManagerInterface $mailChimpManager,
+        private readonly ShopperContextInterface $shopperContext,
+        private readonly ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider,
+    ) {
+    }
 
-	/** @var ShopperContextInterface */
-	private $shopperContext;
+    public function getContact(string $email): ?array
+    {
+        $listId = $this->channelMailChimpSettingsProvider->getListId();
+        $isMailChimpEnabled = $this->channelMailChimpSettingsProvider->isMailChimpEnabled();
 
-	/** @var string|null */
-	private $listId;
+        assert($isMailChimpEnabled && $listId !== null);
 
-	/** @var bool */
-	private $isDoubleOptInEnabled;
+        return $this->mailChimpManager->getContact($email, $listId);
+    }
 
-	/** @var bool */
-	private $isMailChimpEnabled;
+    public function isSubscribed(string $email): bool
+    {
+        $listId = $this->channelMailChimpSettingsProvider->getListId();
+        $isMailChimpEnabled = $this->channelMailChimpSettingsProvider->isMailChimpEnabled();
 
-	public function __construct(
-		MailChimpManager $mailChimpManager,
-		ShopperContextInterface $shopperContext,
-		ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider
-	) {
-		$this->mailChimpManager = $mailChimpManager;
-		$this->shopperContext = $shopperContext;
-		$this->listId = $channelMailChimpSettingsProvider->getListId();
-		$this->isDoubleOptInEnabled = $channelMailChimpSettingsProvider->isDoubleOptInEnabled();
-		$this->isMailChimpEnabled = $channelMailChimpSettingsProvider->isMailChimpEnabled();
-	}
+        assert($isMailChimpEnabled && $listId !== null);
 
-	public function isSubscribed(string $email): bool
-	{
-		assert($this->isMailChimpEnabled && $this->listId !== null);
+        return $this->mailChimpManager->isEmailSubscribedToList($email, $listId);
+    }
 
-		return $this->mailChimpManager->isEmailSubscribedToList($email, $this->listId);
-	}
+    public function subscribe(string $email, array $data = []): void
+    {
+        $listId = $this->channelMailChimpSettingsProvider->getListId();
+        $isDoubleOptInEnabled = $this->channelMailChimpSettingsProvider->isDoubleOptInEnabled();
+        $isMailChimpEnabled = $this->channelMailChimpSettingsProvider->isMailChimpEnabled();
 
-	public function subscribe(string $email): void
-	{
-		assert($this->isMailChimpEnabled && $this->listId !== null);
-		$this->mailChimpManager->subscribeToList($email, $this->listId, $this->shopperContext->getLocaleCode(), $this->isDoubleOptInEnabled);
-	}
+        assert($isMailChimpEnabled && $listId !== null);
+        $this->mailChimpManager->subscribeToList($email, $listId, $this->shopperContext->getLocaleCode(), $isDoubleOptInEnabled, $data);
+    }
 
-	public function unsubscribe(string $email): void
-	{
-		assert($this->isMailChimpEnabled && $this->listId !== null);
-		$this->mailChimpManager->unsubscribeFromList($email, $this->listId);
-	}
+    public function unsubscribe(string $email): void
+    {
+        $listId = $this->channelMailChimpSettingsProvider->getListId();
+        $isMailChimpEnabled = $this->channelMailChimpSettingsProvider->isMailChimpEnabled();
+
+        assert($isMailChimpEnabled && $listId !== null);
+        $this->mailChimpManager->unsubscribeFromList($email, $listId);
+    }
 }

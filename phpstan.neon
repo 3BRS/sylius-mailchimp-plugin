@@ -1,19 +1,11 @@
 includes:
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
-    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
 
 parameters:
     symfony:
-        container_xml_path: tests/Application/var/cache/test/testContainer.xml
+        container_xml_path: tests/Application/var/cache/dev/Tests_Acme_SyliusExamplePlugin_Application_KernelDevDebugContainer.xml
 
-    excludes_analyse:
-        # Too slow
-        - 'src/DependencyInjection/Configuration.php'
+    excludePaths:
+        - 'tests/'
 
-        # Test dependencies
-        - '*/tests/Application/var/*'
-
-        - '*/tests/Behat/*'
-
-    checkMissingIterableValueType: false
