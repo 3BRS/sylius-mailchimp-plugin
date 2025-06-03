@@ -14,5 +14,10 @@
     <php>
         <server name="KERNEL_CLASS_PATH" value="/tests/Application/src/Kernel.php" />
         <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="dev"/>
+        <env name="APP_SECRET" value="fdbcdf79a9478241a975d5e4f56d807a"/>
+        <!-- ###- symfony/framework-bundle ### -->
     </php>
 </phpunit>

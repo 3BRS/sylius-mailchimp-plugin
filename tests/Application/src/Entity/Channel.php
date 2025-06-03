@@ -2,17 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\MangoSylius\MailChimpPlugin\Application\src\Entity;
+namespace Tests\Acme\SyliusExamplePlugin\Application\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use MangoSylius\MailChimpPlugin\Entity\ChannelMailChimpSettingsTrait;
-use Sylius\Component\Core\Model\Channel as CoreChannel;
+use Doctrine\ORM\Mapping\MappedSuperclass;
+use Doctrine\ORM\Mapping\Table;
+use Sylius\Component\Core\Model\Channel as BaseChannel;
+use ThreeBRS\SyliusMailChimpPlugin\Entity\ChannelMailChimpSettingsInterface;
+use ThreeBRS\SyliusMailChimpPlugin\Entity\ChannelMailChimpSettingsTrait;
 
 /**
- * @ORM\Table(name="sylius_channel")
- * @ORM\Entity
+ * @MappedSuperclass
+ * @Table(name="sylius_channel")
  */
-class Channel extends CoreChannel
+class Channel extends BaseChannel implements ChannelMailChimpSettingsInterface
 {
-	use ChannelMailChimpSettingsTrait;
+    use ChannelMailChimpSettingsTrait;
 }
