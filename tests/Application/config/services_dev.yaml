@@ -1,0 +1,4 @@
+services:
+    ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface:
+        class: ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+        public: true

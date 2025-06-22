@@ -11,5 +11,5 @@ interface CustomerListenerInterface
 {
     public function syncSubscriptionToMailChimp(GenericEvent $event): void;
 
-    public function syncSubstriptionStateFromMailChimp(InteractiveLoginEvent $event): void;
+    public function syncSubscriptionStateFromMailChimp(InteractiveLoginEvent $event): void;
 }

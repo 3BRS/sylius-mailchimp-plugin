@@ -1,6 +1,7 @@
 .PHONY: run init
 
-APP_ENV ?= dev
+APP_ENV ?= dev #(Default is dev)
+#make APP_ENV=test to run in tests (more flexible)
 
 phpstan:
 	APP_ENV=$(APP_ENV) bin/phpstan.sh

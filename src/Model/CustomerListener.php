@@ -66,8 +66,10 @@ class CustomerListener implements CustomerListenerInterface
         }
     }
 
-    public function syncSubstriptionStateFromMailChimp(InteractiveLoginEvent $event): void
+    public function syncSubscriptionStateFromMailChimp(InteractiveLoginEvent $event): void
     {
+        dump('✅ Mailchimp login listener triggered');
+
         if (!$this->isMailChimpEnabled) {
             return;
         }

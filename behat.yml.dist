@@ -14,7 +14,9 @@ default:
         FriendsOfBehat\SymfonyExtension:
             bootstrap: tests/Application/config/bootstrap.php
             kernel:
-                class: Tests\ThreeBRS\MailChimpPlugin\Application\Kernel
+                class: Tests\ThreeBRS\SyliusMailChimpPlugin\Kernel
+                environment: test
+
 
         FriendsOfBehat\VariadicExtension: ~
 

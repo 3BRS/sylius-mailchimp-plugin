@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace ThreeBRS\SyliusMailChimpPlugin\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
 
 trait ChannelMailChimpSettingsTrait
 {
-    /** @ORM\Column(type="string", nullable=true) */
+    #[Column(type: 'string', nullable: true)]
     private ?string $mailChimpListId = null;
 
-    /** @ORM\Column(type="boolean", options={"default" : false}) */
+    #[Column(type: 'boolean', options: ['default' => false])]
     private bool $isMailChimpListDoubleOptInEnabled = false;
 
-    /** @ORM\Column(type="boolean", options={"default" : false}) */
+    #[Column(type: 'boolean', options: ['default' => false])]
     private bool $isMailChimpEnabled = false;
 
     public function setMailChimpListId(?string $listId): void
