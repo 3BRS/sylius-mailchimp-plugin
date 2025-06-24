@@ -9,7 +9,9 @@ default:
                 - sylius.behat.context.setup.admin_security
 
                 - sylius.behat.context.setup.customer
-                - sylius.behat.context.ui.shop.login
+                #- sylius.behat.context.ui.shop.login
+
+                - sylius.behat.context.ui.shop.registration
 
                 - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Setup\ChannelMailchimpContext
                 - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Admin\ChannelMailchimpUiContext

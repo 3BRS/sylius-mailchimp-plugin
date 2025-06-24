@@ -9,6 +9,7 @@ use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface;
 final class MockMailChimpManager implements MailChimpManagerInterface
 {
     private array $calledEmails = [];
+    private array $subscribedEmails = [];
 
     public function getContact(string $email, string $listId): ?array
     {
@@ -23,6 +24,7 @@ final class MockMailChimpManager implements MailChimpManagerInterface
 
     public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled, array $data = []): ?array
     {
+        $this->subscribedEmails[] = $email;
         return ['status' => 'subscribed'];
     }
 
@@ -41,5 +43,17 @@ final class MockMailChimpManager implements MailChimpManagerInterface
         if (!in_array($expectedEmail, $this->calledEmails, true)) {
             throw new \RuntimeException(sprintf('Expected Mailchimp to check subscription for "%s" but it was not called.', $expectedEmail));
         }
+    }
+
+    public function assertSubscribedToEmail(string $expectedEmail): void
+    {
+        if (!in_array($expectedEmail, $this->subscribedEmails, true)) {
+            throw new \RuntimeException(sprintf('Expected Mailchimp to subscribe "%s" but it was not called.', $expectedEmail));
+        }
+    }
+
+    public function getSubscribedEmails(): array
+    {
+        return $this->subscribedEmails;
     }
 }
