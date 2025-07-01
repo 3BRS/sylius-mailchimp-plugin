@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v1.1.0 (2025-07-01)
+
+#### Details
+
+- Update to php ^8.1
+- Update to Sylius 1.14.*
+- Update to Symfony ^5.4|^6.4
+
+
 ## v1.0.0 (2025-06-03)
 
 #### Details
