@@ -20,7 +20,10 @@
 
         <service id="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Shop\MailchimpSubscriptionContext">
             <tag name="fob.context_service"/>
-            <argument type="service" id="ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager"/>
+            <argument type="service" id="Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager"/>
+             <argument type="service" id="sylius.context.channel"/> 
+            <argument type="service" id="ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProvider"/>
+
         </service>
 
 

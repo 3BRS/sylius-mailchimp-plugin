@@ -30,7 +30,6 @@ class CustomerListener implements CustomerListenerInterface
 
     public function syncCustomerToMailChimp(CustomerInterface $customer): void
     {
-
         $email = $customer->getEmailCanonical();
         dd('email', $email);
 

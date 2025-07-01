@@ -5,13 +5,21 @@ declare(strict_types=1);
 namespace Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Shop;
 
 use Behat\Behat\Context\Context;
-use ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager;
+use Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager;
 use PHPUnit\Framework\Assert;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
+use ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProviderInterface;
+
 
 
 final class MailchimpSubscriptionContext implements Context
 {
-    public function __construct(private MockMailChimpManager $mailChimpManager) {}
+    public function __construct(
+        private MockMailChimpManager $mailChimpManager,
+        private ChannelContextInterface $channelContext,
+        private ChannelMailChimpSettingsProviderInterface $settingsProvider
+
+    ) {}
 
     /**
      * @Then Mailchimp should have checked if the email :email is subscribed
@@ -26,9 +34,6 @@ final class MailchimpSubscriptionContext implements Context
      */
     public function mailchimpApiShouldHaveBeenCalledToSubscribe(string $email): void
     {
-        $subscribed = $this->mailChimpManager->getSubscribedEmails();
-
-        dump('Manager class:', get_class($this->mailChimpManager));
         Assert::assertContains($email, $this->mailChimpManager->getSubscribedEmails());
     }
 }

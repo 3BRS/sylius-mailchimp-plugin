@@ -9,6 +9,9 @@ default:
                 - sylius.behat.context.setup.admin_security
 
                 - sylius.behat.context.setup.customer
+                - sylius.behat.context.setup.locale
+                - sylius.behat.context.setup.shop_security
+                
                 #- sylius.behat.context.ui.shop.login
 
                 - sylius.behat.context.ui.shop.registration
