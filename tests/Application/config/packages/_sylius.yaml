@@ -8,10 +8,10 @@ imports:
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 
 parameters:
-    sylius_core.public_dir: "%kernel.project_dir%/public"
+    sylius_core.public_dir: '%kernel.project_dir%/public'
 
 three_brs_sylius_mail_chimp:
-    mailchimp_api_key: "%env(MAILCHIMP_API_KEY)%"
+    mailchimp_api_key: '%env(MAILCHIMP_API_KEY)%'
 
 sylius_shop:
     product_grid:

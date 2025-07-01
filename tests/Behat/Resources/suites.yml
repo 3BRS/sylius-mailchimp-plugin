@@ -1,18 +1,10 @@
+# Put your Behat suites definitions here
+
 default:
     suites:
-        channel_mailchimp_settings:
+        greeting_customer:
             contexts:
-                - sylius.behat.context.hook.doctrine_orm
-                - sylius.behat.context.setup.channel
-                - sylius.behat.context.setup.admin_user
-                - sylius.behat.context.ui.admin.notification
-                - sylius.behat.context.setup.admin_security
+                - acme_sylius_example.context.ui.shop.welcome
 
-                - sylius.behat.context.setup.customer
-                #- sylius.behat.context.ui.shop.login
-
-                - sylius.behat.context.ui.shop.registration
-
-                - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Setup\ChannelMailchimpContext
-                - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Admin\ChannelMailchimpUiContext
-                - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Shop\MailchimpSubscriptionContext
+            filters:
+                tags: "@greeting_customer"

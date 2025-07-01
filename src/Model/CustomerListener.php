@@ -21,18 +21,14 @@ class CustomerListener implements CustomerListenerInterface
     public function __construct(
         private readonly MailChimpChannelSubscriberInterface $mailChimpChannelSubscriber,
         private readonly LoggerInterface $logger,
-        ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider
+        ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider,
     ) {
-        dump('Channel resolved:', $channelMailChimpSettingsProvider->getListId());
-
         $this->isMailChimpEnabled = $channelMailChimpSettingsProvider->isMailChimpEnabled() && $channelMailChimpSettingsProvider->getListId() !== null;
     }
 
     public function syncCustomerToMailChimp(CustomerInterface $customer): void
     {
-
         $email = $customer->getEmailCanonical();
-        dd('email', $email);
 
         if ($email === null) {
             return;
@@ -73,8 +69,6 @@ class CustomerListener implements CustomerListenerInterface
 
     public function syncSubscriptionStateFromMailChimp(InteractiveLoginEvent $event): void
     {
-        dump('✅ Mailchimp login listener triggered');
-
         if (!$this->isMailChimpEnabled) {
             return;
         }

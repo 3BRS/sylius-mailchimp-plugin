@@ -4,7 +4,7 @@ includes:
 
 parameters:
     symfony:
-        container_xml_path: tests/Application/var/cache/dev/Tests_Acme_SyliusExamplePlugin_Application_KernelDevDebugContainer.xml
+        container_xml_path: tests/Application/var/cache/test/Tests_ThreeBRS_SyliusMailChimpPlugin_KernelTestDebugContainer.xml
 
     excludePaths:
         - 'tests/'

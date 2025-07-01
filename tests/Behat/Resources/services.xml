@@ -1,34 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://symfony.com/schema/dic/services"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <defaults public="true" />
-
-        <service id="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Setup\ChannelMailchimpContext">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="sylius.repository.channel" />
-        </service>
-        
-        <service id="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Admin\ChannelMailchimpUiContext">
-            <tag name="fob.context_service" />
-            <argument type="service" id="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Page\Admin\Channel\UpdatePageInterface"/>
-            <argument type="service" id="sylius.repository.channel" />
-        </service>
-
-
-        <service id="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Shop\MailchimpSubscriptionContext">
-            <tag name="fob.context_service"/>
-            <argument type="service" id="ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager"/>
-        </service>
-
-
-        <service id="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Page\Admin\Channel\UpdatePageInterface"
-                 class="Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Page\Admin\Channel\UpdatePage"
-                 parent="sylius.behat.page.admin.crud.update">
-            <argument type="string">sylius_admin_channel_update</argument>
-        </service>
-
+        <!-- Put your Behat services here -->
     </services>
 </container>

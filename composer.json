@@ -51,9 +51,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tests\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Application/src/",
-			"Tests\\ThreeBRS\\SyliusMailChimpPlugin\\Behat\\": "tests/Behat/"
-
+			"Tests\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Application/src/"
 		}
 	},
 	"config": {

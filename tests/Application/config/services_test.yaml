@@ -10,22 +10,14 @@ services:
     Symfony\Component\BrowserKit\AbstractBrowser: "@test.client"
 
     ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface:
-        alias: ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+        alias: Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
         public: true
 
 
     ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManager:
-        alias: ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+        alias: Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
         public: true
 
-    ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager:
-        class: ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+    Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager:
+        class: Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
         public: true
-        autowire: true
-        autoconfigure: true
-        
-    ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProviderInterface:
-        class: ThreeBRS\SyliusMailChimpPlugin\Service\mocks\TestMailChimpSettingsProvider
-        public: true
-        autowire: true
-        autoconfigure: true
