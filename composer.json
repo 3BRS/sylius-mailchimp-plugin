@@ -11,8 +11,6 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "api-platform/core": "2.7.13",
-        "symfony/serializer": "6.4.0",
         "behat/behat": "^3.9.0",
         "behat/mink-selenium2-driver": "^1.4",
         "dmore/behat-chrome-extension": "^1.3",
@@ -47,7 +45,7 @@
         "doctrine/annotations": "^2.0"
     },
     "conflict": {
-        "api-platform/core": "<2.7.13|>=3.0.0",
+        "api-platform/core": "<2.7.13",
         "symfony/serializer": ">=6.4",
         "babdev/pagerfanta-bundle": "<3.6.1",
         "friendsofsymfony/rest-bundle": "<3.1.0",
