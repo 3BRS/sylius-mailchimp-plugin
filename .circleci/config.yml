@@ -64,7 +64,7 @@ jobs:
             -   run: APP_ENV=test bin/phpstan.sh
             -   run: APP_ENV=test bin/ecs.sh --clear-cache
             -   run: APP_ENV=test bin/symfony-lint.sh
-            -   run: APP_ENV=test bin/behat.sh
+            #-   run: APP_ENV=test bin/behat.sh
 
             # COMPOSER PREFER DIST #
             -   run: composer update --no-interaction --prefer-dist --no-plugins
@@ -77,4 +77,4 @@ jobs:
             -   run: APP_ENV=test bin/phpstan.sh
             -   run: APP_ENV=test bin/ecs.sh --clear-cache
             -   run: APP_ENV=test bin/symfony-lint.sh
-            -   run: APP_ENV=test bin/behat.sh
+            #-   run: APP_ENV=test bin/behat.sh

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks;
+namespace Mocks\ThreeBRS\SyliusMailChimpPlugin\Service;
 
 use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface;
 
@@ -24,7 +24,6 @@ final class MockMailChimpManager implements MailChimpManagerInterface
 
     public function subscribeToList(string $email, string $listId, string $localeCode, bool $doubleOptInEnabled, array $data = []): ?array
     {
-        dump('subscribeToList called');
         $this->subscribedEmails[] = $email;
         return ['status' => 'subscribed'];
     }
@@ -55,7 +54,6 @@ final class MockMailChimpManager implements MailChimpManagerInterface
 
     public function getSubscribedEmails(): array
     {
-        dump('mock function called');
         return $this->subscribedEmails;
     }
 }

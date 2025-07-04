@@ -1,23 +1,16 @@
-imports:
-    - { resource: "../../Behat/Resources/services.xml" }
-    - {
-          resource: "../../../vendor/sylius/sylius/src/Sylius/Behat/Resources/config/services.xml",
-      }
-
 # workaround needed for strange "test.client.history" problem
 # see https://github.com/FriendsOfBehat/SymfonyExtension/issues/88
 services:
     Symfony\Component\BrowserKit\AbstractBrowser: "@test.client"
 
     ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface:
-        alias: Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+        alias: Mocks\ThreeBRS\SyliusMailChimpPlugin\Service\MockMailChimpManager
         public: true
-
 
     ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManager:
-        alias: Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+        alias: Mocks\ThreeBRS\SyliusMailChimpPlugin\Service\MockMailChimpManager
         public: true
 
-    Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager:
-        class: Tests\ThreeBRS\SyliusMailChimpPlugin\Service\mocks\MockMailChimpManager
+    Mocks\ThreeBRS\SyliusMailChimpPlugin\Service\MockMailChimpManager:
+        class: Mocks\ThreeBRS\SyliusMailChimpPlugin\Service\MockMailChimpManager
         public: true

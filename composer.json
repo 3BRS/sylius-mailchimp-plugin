@@ -1,6 +1,5 @@
 {
     "name": "3brs/sylius-mailchimp-plugin",
-    "version": "1.0.0",
     "type": "sylius-plugin",
     "description": "MailChimp plugin for Sylius",
     "license": "MIT",
@@ -76,7 +75,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Application/src/"
+            "Tests\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Application/src/",
+            "Mocks\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Mocks/"
         }
     },
     "config": {
