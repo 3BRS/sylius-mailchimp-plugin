@@ -29,6 +29,7 @@ class CustomerListener implements CustomerListenerInterface
     public function syncCustomerToMailChimp(CustomerInterface $customer): void
     {
         $email = $customer->getEmailCanonical();
+
         if ($email === null) {
             return;
         }
@@ -66,7 +67,7 @@ class CustomerListener implements CustomerListenerInterface
         }
     }
 
-    public function syncSubstriptionStateFromMailChimp(InteractiveLoginEvent $event): void
+    public function syncSubscriptionStateFromMailChimp(InteractiveLoginEvent $event): void
     {
         if (!$this->isMailChimpEnabled) {
             return;

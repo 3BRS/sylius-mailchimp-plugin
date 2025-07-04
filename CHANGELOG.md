@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.1.0 (2025-07-01)
+
+#### Details
+
+- Update to PHP ^8.1
+- Update to Sylius 1.14.*
+- Update to Symfony ^6.4
+- Renamed method `syncSubstriptionStateFromMailChimp()` to `syncSubscriptionStateFromMailChimp()` in `CustomerListenerInterface`
 ## v1.0.0 (2025-06-03)
 
 #### Details

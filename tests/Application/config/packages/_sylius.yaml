@@ -24,4 +24,4 @@ sylius_channel:
     resources:
         channel:
             classes:
-                model: Tests\Acme\SyliusExamplePlugin\Application\Entity\Channel
+                model: Tests\ThreeBRS\SyliusMailChimpPlugin\Entity\Channel
