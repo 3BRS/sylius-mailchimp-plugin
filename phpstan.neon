@@ -4,8 +4,10 @@ includes:
 
 parameters:
     symfony:
-        container_xml_path: tests/Application/var/cache/test/Tests_ThreeBRS_SyliusMailChimpPlugin_KernelTestDebugContainer.xml
+        containerXmlPath: tests/Application/var/cache/test/Tests_ThreeBRS_SyliusMailChimpPlugin_KernelTestDebugContainer.xml
 
     excludePaths:
         - 'tests/'
 
+    ignoreErrors:
+            - '#Trait ThreeBRS\\SyliusMailChimpPlugin\\Entity\\ChannelMailChimpSettingsTrait is used zero times and is not analysed#'
