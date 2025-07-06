@@ -2,10 +2,10 @@ sylius_twig_hooks:
   hooks:
     'sylius_admin.channel.create.content.form.sections':
         mailChimpChannelSettingsForm:
-          template: '@ThreeBRSSyliusMailChimpPlugin/hooks/mailChimpChannelSettingsForm.html.twig'
+          template: '@ThreeBRSSyliusMailChimpPlugin/mailChimpChannelSettingsForm.html.twig'
           priority: 0
     'sylius_admin.channel.update.content.form.sections':
         mailChimpChannelSettingsForm:
-          template: '@ThreeBRSSyliusMailChimpPlugin/hooks/mailChimpChannelSettingsForm.html.twig'
+          template: '@ThreeBRSSyliusMailChimpPlugin/mailChimpChannelSettingsForm.html.twig'
           priority: 0
     
