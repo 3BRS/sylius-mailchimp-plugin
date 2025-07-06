@@ -1,15 +1,11 @@
-.PHONY: run init
-
-APP_ENV ?= dev
-
 phpstan:
-	APP_ENV=$(APP_ENV) bin/phpstan.sh
+	APP_ENV=test bin/phpstan.sh
 
 ecs:
-	APP_ENV=$(APP_ENV) bin/ecs.sh --clear-cache
+	APP_ENV=test bin/ecs.sh --clear-cache
 
 fix:
-	APP_ENV=$(APP_ENV) bin/ecs.sh --fix
+	APP_ENV=test bin/ecs.sh --fix
 
 install:
 	rm -f composer.lock
@@ -58,7 +54,7 @@ lint:
 	APP_ENV=$(APP_ENV) bin/doctrine-lint.sh
 
 behat:
-	APP_ENV=$(APP_ENV) bin/behat.sh
+	APP_ENV=test bin/behat.sh
 
 init: install backend frontend
 
