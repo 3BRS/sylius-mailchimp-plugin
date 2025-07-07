@@ -28,7 +28,7 @@ MailChimp Plugin
 * This plugin, unlike others, can handle large mailing lists
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/3brs/sylius-mailChimp-plugin/master/doc/admin.png"/>
+    <img src="https://github.com/3BRS/sylius-mailchimp-plugin/blob/SLS-21-MailChimp-Plugin-to-2.0/doc/admin.png?raw=true"/>
 </p>
 
 ## Installation
