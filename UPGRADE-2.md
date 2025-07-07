@@ -16,8 +16,16 @@ Templates are now rendered using Twig hooks, which is the standard in Sylius 2:
 
 * **Admin**
 
+<<<<<<< HEAD
     * [admin_hooks.yaml](https://github.com/3BRS/sylius-mailchimp-plugin/blob/master/config/app/twig_hooks/admin_hooks.yaml) contains config for Twig hooks used in Admin
 
 * **Shop**
 
     * [shop_hooks.yaml](https://github.com/3BRS/sylius-mailchimp-plugin/blob/master/config/app/twig_hooks/shop_hooks.yaml) contains config for Twig hooks used in Shop
+=======
+    * [admin_hooks.yaml](https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/src/config/app/twig_hooks/admin/show_message_hooks.yaml) contains config for Twig hooks used in Admin
+
+* **Shop**
+
+    * [shop_hooks.yaml](https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/src/config/app/twig_hooks/shop/messages_hooks.yaml) contains config for Twig hooks used in Shop
+>>>>>>> Apply code review I

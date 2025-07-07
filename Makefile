@@ -1,3 +1,7 @@
+.PHONY: run init
+
+APP_ENV ?= dev
+
 phpstan:
 	APP_ENV=test bin/phpstan.sh
 
