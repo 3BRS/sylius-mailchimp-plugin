@@ -1,4 +1,4 @@
-# UPGRADE FROM 1.0.0 to 2.0.0
+# UPGRADE FROM 1.1.0 to 2.0.0
 
 ## File Location Changes
 
@@ -16,8 +16,8 @@ Templates are now rendered using Twig hooks, which is the standard in Sylius 2:
 
 * **Admin**
 
-    * [admin_hooks.yaml](https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/src/config/app/twig_hooks/admin/show_message_hooks.yaml) contains config for Twig hooks used in Admin
+    * [admin_hooks.yaml](https://github.com/3BRS/sylius-mailchimp-plugin/blob/master/config/app/twig_hooks/admin_hooks.yaml) contains config for Twig hooks used in Admin
 
 * **Shop**
 
-    * [shop_hooks.yaml](https://github.com/3BRS/sylius-contact-form-plugin/blob/sylius_2_upgrade_AK/src/config/app/twig_hooks/shop/messages_hooks.yaml) contains config for Twig hooks used in Shop
+    * [shop_hooks.yaml](https://github.com/3BRS/sylius-mailchimp-plugin/blob/master/config/app/twig_hooks/shop_hooks.yaml) contains config for Twig hooks used in Shop
