@@ -1,0 +1,5 @@
+{% set form = hookable_metadata.context.form %}
+
+{% if form.parent.children.customer is defined %}
+	{{ form_row(form.parent.children.customer.subscribedToNewsletter) }}
+{% endif %}

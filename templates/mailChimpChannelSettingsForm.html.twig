@@ -1,0 +1,12 @@
+{% set form = hookable_metadata.context.form %}
+
+<div class="g-col-12 card mb-3">
+    <div class="card-header">
+        <div class="card-title">MailChimp</div>
+    </div>
+    <div class="card-body">
+        {{ form_row(form.isMailChimpEnabled) }}
+        {{ form_row(form.mailChimpListId) }}
+        {{ form_row(form.isMailChimpListDoubleOptInEnabled) }}
+    </div>
+</div>

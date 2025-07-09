@@ -17,7 +17,7 @@ final class ThreeBRSSyliusMailChimpExtension extends Extension
      */
     public function load(array $config, ContainerBuilder $container): void
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.yml');
 
         $configuration = new Configuration();

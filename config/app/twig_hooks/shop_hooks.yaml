@@ -1,0 +1,12 @@
+sylius_twig_hooks:
+  hooks:
+    'sylius_shop.checkout.address.content.form.addresses.billing_address.address':
+        newsletterSubscribeForm:
+          template: '@ThreeBRSSyliusMailChimpPlugin/newsletterSubscribeForm.html.twig'
+          priority: 0
+
+
+
+
+
+

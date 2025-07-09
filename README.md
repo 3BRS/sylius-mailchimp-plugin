@@ -28,7 +28,7 @@ MailChimp Plugin
 * This plugin, unlike others, can handle large mailing lists
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/3brs/sylius-mailChimp-plugin/master/doc/admin.png"/>
+    <img src="https://github.com/3BRS/sylius-mailchimp-plugin/blob/SLS-21-MailChimp-Plugin-to-2.0/doc/admin.png?raw=true"/>
 </p>
 
 ## Installation
@@ -36,7 +36,12 @@ MailChimp Plugin
 1. Run `$ composer require 3brs/sylius-mailchimp-plugin`.
 2. Register `\ThreeBRS\SyliusMailChimpPlugin\ThreeBRSSyliusMailChimpPlugin` in your Kernel.
 3. Your Entity `Channel` has to implement `\ThreeBRS\SyliusMailChimpPlugin\Entity\ChannelMailChimpSettingsInterface`. You can use Trait `ThreeBRS\SyliusMailChimpPlugin\Entity\ChannelMailChimpSettingsTrait`. 
-4. Include `{{ include('@ThreeBRSSyliusMailChimpPlugin/mailChimpChannelSettingsForm.html.twig') }}` in channel edit page.
+4. Add config to `config/packages/_sylius.yaml`
+   ```yaml
+   imports:
+        ...
+            - { resource: "@ThreeBRSSyliusMailChimpPlugin/config/config.yaml" }
+   ```
 5. Create and run doctrine database migrations.
 
 For guide to use your own entity see [Sylius docs - Customizing Models](https://old-docs.sylius.com/en/1.13/customization/model.html).
