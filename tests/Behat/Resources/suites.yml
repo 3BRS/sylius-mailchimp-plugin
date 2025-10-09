@@ -9,10 +9,31 @@ default:
                 - sylius.behat.context.setup.admin_security
 
                 - sylius.behat.context.setup.customer
-                #- sylius.behat.context.ui.shop.login
+#                - sylius.behat.context.ui.shop.login
 
                 - sylius.behat.context.ui.shop.registration
 
                 - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Setup\ChannelMailchimpContext
                 - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Admin\ChannelMailchimpUiContext
                 - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Shop\MailchimpSubscriptionContext
+            filters:
+                tags: "@user_registration&&@mailchimp"
+
+#        user_login_check_mailchimp:
+#            contexts:
+#                - sylius.behat.context.hook.doctrine_orm
+#                - sylius.behat.context.setup.channel
+#                - sylius.behat.context.ui.user
+#                - sylius.behat.context.ui.admin.notification
+#                - sylius.behat.context.setup.admin_security
+#
+#                - sylius.behat.context.setup.customer
+#                - sylius.behat.context.hybrid.shop.composite_customer
+#
+#                - sylius.behat.context.ui.shop.login
+#
+#                - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Setup\ChannelMailchimpContext
+#                - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Admin\ChannelMailchimpUiContext
+#                - Tests\ThreeBRS\SyliusMailChimpPlugin\Behat\Context\Ui\Shop\MailchimpSubscriptionContext
+#            filters:
+#                tags: "@user_login&&@mailchimp"

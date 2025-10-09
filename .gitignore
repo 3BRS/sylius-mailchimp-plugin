@@ -12,6 +12,7 @@ compose.override.yaml
 /deploy/
 /docker/
 /etc
+/.env
 
 yarn-error.log
 
@@ -22,7 +23,6 @@ yarn-error.log
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
-/vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -31,10 +31,8 @@ yarn-error.log
 ###< phpunit/phpunit ###
 
 ###> symfony/webpack-encore-bundle ###
-/node_modules/
 /public/build/
 npm-debug.log
-yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###

@@ -28,7 +28,6 @@ final class MailchimpSubscriptionContext implements Context
     {
         $subscribed = $this->mailChimpManager->getSubscribedEmails();
 
-        dump('Manager class:', get_class($this->mailChimpManager));
         Assert::assertContains($email, $this->mailChimpManager->getSubscribedEmails());
     }
 }
