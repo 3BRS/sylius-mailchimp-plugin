@@ -14,7 +14,7 @@ services:
     ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProviderInterface: '@ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProvider'
     ThreeBRS\SyliusMailChimpPlugin\Service\ChannelMailChimpSettingsProvider:
         arguments:
-            $channelContext: '@sylius.context.channel.request_based'
+            $channelContext: '@sylius.context.channel'
 
     ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpChannelSubscriberInterface: '@ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpChannelSubscriber'
     ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpChannelSubscriber:
