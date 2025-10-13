@@ -89,7 +89,8 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpstan/extension-installer": true,
-            "symfony/flex": false
+            "symfony/flex": false,
+            "php-http/discovery": true
         }
     },
     "scripts": {

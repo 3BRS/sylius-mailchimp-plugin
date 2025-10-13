@@ -8,13 +8,14 @@
 
 /tests/Application/yarn.lock
 
-compose.override.yaml
-/bin-docker/
+/compose.override.yaml
 /deploy/
 /docker/
 /etc
 
-yarn-error.log
+/yarn-error.log
+/.env
+/.envrc
 
 ###> symfony/framework-bundle ###
 /.env.local

@@ -16,14 +16,13 @@ use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpChannelSubscriberInterface;
 
 class CustomerListener implements CustomerListenerInterface
 {
-    private bool $isMailChimpEnabled = false;
+    private ?bool $mailChimpEnabled = null;
 
     public function __construct(
         private readonly MailChimpChannelSubscriberInterface $mailChimpChannelSubscriber,
         private readonly LoggerInterface $logger,
-        ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider,
+        private readonly ChannelMailChimpSettingsProviderInterface $channelMailChimpSettingsProvider,
     ) {
-        $this->isMailChimpEnabled = $channelMailChimpSettingsProvider->isMailChimpEnabled() && $channelMailChimpSettingsProvider->getListId() !== null;
     }
 
     public function syncCustomerToMailChimp(CustomerInterface $customer): void
@@ -52,7 +51,7 @@ class CustomerListener implements CustomerListenerInterface
 
     public function syncSubscriptionToMailChimp(GenericEvent $event): void
     {
-        if (!$this->isMailChimpEnabled) {
+        if (!$this->isMailchimpEnabled()) {
             return;
         }
 
@@ -67,9 +66,19 @@ class CustomerListener implements CustomerListenerInterface
         }
     }
 
+    private function isMailchimpEnabled(): bool
+    {
+        if ($this->mailChimpEnabled === null) {
+            $this->mailChimpEnabled = $this->channelMailChimpSettingsProvider->isMailChimpEnabled() &&
+                $this->channelMailChimpSettingsProvider->getListId() !== null;
+        }
+
+        return $this->mailChimpEnabled;
+    }
+
     public function syncSubscriptionStateFromMailChimp(InteractiveLoginEvent $event): void
     {
-        if (!$this->isMailChimpEnabled) {
+        if (!$this->isMailchimpEnabled()) {
             return;
         }
 
