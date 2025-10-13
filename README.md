@@ -42,7 +42,11 @@ MailChimp Plugin
         ...
             - { resource: "@ThreeBRSSyliusMailChimpPlugin/config/config.yaml" }
    ```
-5. Create and run doctrine database migrations.
+5. Generate and run doctrine database migrations:
+   ```bash
+   $ bin/console doctrine:migrations:diff
+   $ bin/console doctrine:migrations:migrate
+   ```
 
 For guide to use your own entity see [Sylius docs - Customizing Models](https://old-docs.sylius.com/en/1.13/customization/model.html).
 
@@ -55,9 +59,19 @@ three_brs_sylius_mail_chimp:
     mailchimp_api_key: API_KEY
 ```
 
-## Optional (subscription from checkout)
+## Subscription from checkout
 
-- Include subscribe checkbox template into checkout `{{ include('@ThreeBRSSyliusMailChimpPlugin/newsletterSubscribeForm.html.twig') }}` 
+The newsletter subscription checkbox is automatically injected into the checkout address page via Sylius Twig hooks.
+
+If you want to disable this feature, add the following configuration to your `config/packages/_sylius.yaml` file:
+
+```yaml
+sylius_twig_hooks:
+    hooks:
+        'sylius_shop.checkout.address.content.form.addresses.billing_address.address':
+            newsletterSubscribeForm:
+                enabled: false
+```
 
 ## Development
 
