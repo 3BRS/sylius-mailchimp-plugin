@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpManagerInterface;
 
-final class MailChimpChannelTypeExtension extends AbstractTypeExtension
+class MailChimpChannelTypeExtension extends AbstractTypeExtension
 {
     public function __construct(private readonly MailChimpManagerInterface $mailChimpManager)
     {

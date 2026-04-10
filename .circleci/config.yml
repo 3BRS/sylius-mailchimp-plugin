@@ -62,6 +62,7 @@ jobs:
             -   run: bin/phpstan.sh
             -   run: bin/ecs.sh --clear-cache
             -   run: bin/symfony-lint.sh
+            -   run: bin/phpunit
 
             # COMPOSER PREFER LOWEST (oldest possible) #
             # has to delete vendor for next test with different libraries version to avoid Composer error 'Failed to extract...' if vendor dir cache does not exist
@@ -80,3 +81,4 @@ jobs:
             -   run: bin/phpstan.sh
             -   run: bin/ecs.sh --clear-cache
             -   run: bin/symfony-lint.sh
+            -   run: bin/phpunit
