@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use ThreeBRS\SyliusMailChimpPlugin\Service\MailChimpApiClientProvider;
 
-final class ThreeBRSSyliusMailChimpExtension extends Extension
+class ThreeBRSSyliusMailChimpExtension extends Extension
 {
     /**
      * @inheritdoc

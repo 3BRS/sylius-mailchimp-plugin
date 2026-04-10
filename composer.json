@@ -118,6 +118,7 @@
   "autoload-dev": {
     "psr-4": {
       "Tests\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Application/src/",
+      "Tests\\ThreeBRS\\SyliusMailChimpPlugin\\Unit\\": "tests/Unit/",
       "Mocks\\ThreeBRS\\SyliusMailChimpPlugin\\": "tests/Mocks/"
     }
   },

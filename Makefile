@@ -1,4 +1,4 @@
-.PHONY: run init var yarn ci fix ecs bash static cache tests
+.PHONY: run init var yarn ci fix ecs bash static cache tests cache-warmup-test
 
 MAKEFLAGS += --no-print-directory # to disable "make: Entering directory ..." messages
 
@@ -11,7 +11,7 @@ init:
 		direnv allow; \
 	fi
 	docker compose up -d
-	./bin-docker/composer update --no-interaction
+	./bin-docker/composer update --no-interaction --no-plugins
 	@make var
 	./bin-docker/php ./bin/console doctrine:database:create --no-interaction --if-not-exists
 	./bin-docker/php ./bin/console doctrine:migrations:migrate --no-interaction
@@ -31,7 +31,7 @@ init-tests:
 		direnv allow; \
 	fi
 	docker compose up -d
-	./bin-docker/composer update --no-interaction
+	./bin-docker/composer update --no-interaction --no-plugins
 	rm -fr tests/Application/var/test
 	@make var
 	./bin-docker/php ./bin/console --env=test doctrine:database:drop --no-interaction --force --if-exists
@@ -113,7 +113,11 @@ var:
 
 fixtures: schema-reset bare-fixtures var
 
-tests: static phpunit
+cache-warmup-test:
+	rm -fr tests/Application/var/cache/test
+	./bin-docker/php ./bin/console --env=test cache:warmup
+
+tests: static phpunit cache-warmup-test
 
 ci: init-tests tests
 
