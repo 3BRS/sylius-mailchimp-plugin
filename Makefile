@@ -20,6 +20,8 @@ init:
 	./bin-docker/php ./bin/console assets:install
 	./bin-docker/yarn --cwd=tests/Application install --pure-lockfile
 	GULP_ENV=prod ./bin-docker/yarn --cwd=tests/Application build
+	./bin-docker/php ./bin/console sylius:payment:generate-key --no-interaction
+	./bin-docker/php ./bin/console lexik:jwt:generate-keypair --skip-if-exists --no-interaction
 	@make var
 
 init-tests:
@@ -41,6 +43,8 @@ init-tests:
 	./bin-docker/yarn install --pure-lockfile
 	./bin-docker/yarn --cwd=tests/Application install --pure-lockfile
 	GULP_ENV=prod ./bin-docker/yarn --cwd=tests/Application build
+	./bin-docker/php ./bin/console --env=test sylius:payment:generate-key --no-interaction
+	./bin-docker/php ./bin/console --env=test lexik:jwt:generate-keypair --skip-if-exists --no-interaction
 	@make var
 
 cache:
