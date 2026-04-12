@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "title": "Subscriber List",
+    "description": "Information about a specific list.",
+    "required": [
+        "name",
+        "permission_reminder",
+        "email_type_option",
+        "contact",
+        "campaign_defaults"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "title": "List ID",
+            "description": "A string that uniquely identifies this list",
+            "readOnly": true
+        },
+        "web_id": { "type": "integer", "readOnly": true },
+        "name": {
+            "type": "string",
+            "title": "List Name",
+            "description": "The name of the list."
+        },
+        "contact": {
+            "type": "object",
+            "required": ["company", "address1", "city", "country"],
+            "properties": {
+                "company": { "type": "string" },
+                "address1": { "type": "string" },
+                "address2": { "type": "string" },
+                "city": { "type": "string" },
+                "state": { "type": "string" },
+                "zip": { "type": "string" },
+                "country": { "type": "string" },
+                "phone": { "type": "string" }
+            }
+        },
+        "permission_reminder": { "type": "string" },
+        "use_archive_bar": { "type": "boolean" },
+        "campaign_defaults": {
+            "type": "object",
+            "required": ["from_name", "from_email", "subject", "language"],
+            "properties": {
+                "from_name": { "type": "string" },
+                "from_email": { "type": "string" },
+                "subject": { "type": "string" },
+                "language": { "type": "string" }
+            }
+        },
+        "notify_on_subscribe": { "type": "string" },
+        "notify_on_unsubscribe": { "type": "string" },
+        "date_created": { "type": "string", "format": "date-time", "readOnly": true },
+        "list_rating": { "type": "integer", "readOnly": true },
+        "email_type_option": { "type": "boolean" },
+        "subscribe_url_short": { "type": "string", "readOnly": true },
+        "subscribe_url_long": { "type": "string", "readOnly": true },
+        "beamer_address": { "type": "string", "readOnly": true },
+        "visibility": { "type": "string", "enum": ["pub", "prv"] },
+        "double_optin": { "type": "boolean" },
+        "has_welcome": { "type": "boolean" },
+        "marketing_permissions": { "type": "boolean" },
+        "modules": { "type": "array", "readOnly": true },
+        "stats": {
+            "type": "object",
+            "readOnly": true,
+            "properties": {
+                "member_count": { "type": "integer", "readOnly": true },
+                "unsubscribe_count": { "type": "integer", "readOnly": true },
+                "cleaned_count": { "type": "integer", "readOnly": true },
+                "member_count_since_send": { "type": "integer", "readOnly": true },
+                "unsubscribe_count_since_send": { "type": "integer", "readOnly": true },
+                "cleaned_count_since_send": { "type": "integer", "readOnly": true },
+                "campaign_count": { "type": "integer", "readOnly": true },
+                "campaign_last_sent": { "type": "string", "readOnly": true },
+                "merge_field_count": { "type": "integer", "readOnly": true },
+                "avg_sub_rate": { "type": "number", "readOnly": true },
+                "avg_unsub_rate": { "type": "number", "readOnly": true },
+                "target_sub_rate": { "type": "number", "readOnly": true },
+                "open_rate": { "type": "number", "readOnly": true },
+                "click_rate": { "type": "number", "readOnly": true },
+                "last_sub_date": { "type": "string", "readOnly": true },
+                "last_unsub_date": { "type": "string", "readOnly": true }
+            }
+        },
+        "_links": {
+            "$ref": "https://us22.api.mailchimp.com/schema/3.0/Generics/ResourceLinkArray.json"
+        }
+    }
+}

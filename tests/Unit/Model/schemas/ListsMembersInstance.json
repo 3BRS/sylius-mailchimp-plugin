@@ -1,0 +1,157 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "title": "List Members",
+    "description": "Individuals who are currently or have been previously subscribed to this list, including members who have bounced or unsubscribed.",
+    "required": [
+        "email_address"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "title": "Email ID",
+            "description": "The MD5 hash of the list member's email address.",
+            "readOnly": true
+        },
+        "email_address": {
+            "type": "string",
+            "title": "Email Address",
+            "description": "Email address for a subscriber.",
+            "readOnly": true
+        },
+        "unique_email_id": {
+            "type": "string",
+            "title": "Unique Email ID",
+            "description": "An identifier for the address across all of Mailchimp.",
+            "readOnly": true
+        },
+        "email_type": {
+            "type": "string",
+            "title": "Email Type",
+            "description": "Type of email this member asked to get ('html' or 'text')."
+        },
+        "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Subscriber's current status.",
+            "enum": [
+                "subscribed",
+                "unsubscribed",
+                "cleaned",
+                "transactional",
+                "pending"
+            ]
+        },
+        "status_if_new": {
+            "type": "string",
+            "title": "Default Status",
+            "description": "Subscriber's status, to be used only on a PUT request if the email is not already present on the list.",
+            "enum": [
+                "subscribed",
+                "unsubscribed",
+                "cleaned",
+                "transactional",
+                "pending"
+            ]
+        },
+        "sms_phone_number": {
+            "type": "string",
+            "title": "SMS Phone Number"
+        },
+        "sms_subscription_status": {
+            "type": "string",
+            "title": "SMS Subscription Status"
+        },
+        "sms_subscription_last_updated": {
+            "type": "string",
+            "title": "SMS Subscription Last Update"
+        },
+        "merge_fields": {
+            "$ref": "https://us22.api.mailchimp.com/schema/3.0/Lists/Members/MergeField.json"
+        },
+        "interests": {
+            "type": "object",
+            "title": "Subscriber Interests",
+            "additionalProperties": {
+                "type": "boolean"
+            }
+        },
+        "stats": {
+            "type": "object",
+            "title": "Subscriber Stats",
+            "readOnly": true,
+            "properties": {
+                "avg_open_rate": { "type": "number", "readOnly": true },
+                "avg_click_rate": { "type": "number", "readOnly": true },
+                "ecommerce_data": {
+                    "type": "object",
+                    "readOnly": true,
+                    "properties": {
+                        "total_revenue": { "type": "number", "readOnly": true },
+                        "number_of_orders": { "type": "number", "readOnly": true },
+                        "currency_code": { "type": "string", "readOnly": true }
+                    }
+                }
+            }
+        },
+        "ip_signup": { "type": "string", "readOnly": true },
+        "timestamp_signup": { "type": "string", "format": "date-time", "readOnly": true },
+        "ip_opt": { "type": "string", "readOnly": true },
+        "timestamp_opt": { "type": "string", "format": "date-time", "readOnly": true },
+        "member_rating": { "type": "integer", "readOnly": true },
+        "last_changed": { "type": "string", "format": "date-time", "readOnly": true },
+        "language": {
+            "type": "string",
+            "title": "Language",
+            "description": "If set/detected, the language of the subscriber."
+        },
+        "vip": { "type": "boolean" },
+        "email_client": { "type": "string", "readOnly": true },
+        "location": {
+            "type": "object",
+            "properties": {
+                "latitude": { "type": "number" },
+                "longitude": { "type": "number" },
+                "gmtoff": { "type": "integer", "readOnly": true },
+                "dstoff": { "type": "integer", "readOnly": true },
+                "country_code": { "type": "string", "readOnly": true },
+                "timezone": { "type": "string", "readOnly": true },
+                "region": { "type": "string", "readOnly": true }
+            }
+        },
+        "marketing_permissions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "marketing_permission_id": { "type": "string" },
+                    "text": { "type": "string" },
+                    "enabled": { "type": "boolean" }
+                }
+            }
+        },
+        "last_note": {
+            "type": "object",
+            "readOnly": true,
+            "properties": {
+                "note_id": { "type": "integer" },
+                "created_at": { "type": "string" },
+                "created_by": { "type": "string" },
+                "note": { "type": "string" }
+            }
+        },
+        "list_id": { "type": "string", "readOnly": true },
+        "tags_count": { "type": "integer", "readOnly": true },
+        "tags": {
+            "type": "array",
+            "properties": {
+                "id": { "type": "integer", "readOnly": true },
+                "name": { "type": "string", "readOnly": true }
+            }
+        },
+        "source": { "type": "string", "readOnly": true },
+        "_links": {
+            "$ref": "https://us22.api.mailchimp.com/schema/3.0/Generics/ResourceLinkArray.json"
+        }
+    }
+}
