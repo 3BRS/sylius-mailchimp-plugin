@@ -4,7 +4,8 @@
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/5.6/phpunit.xsd"
          backupGlobals="false"
          colors="true"
-         bootstrap="tests/Application/config/bootstrap.php">
+         bootstrap="tests/Application/config/bootstrap.php"
+         cacheDirectory="tests/Application/var/.phpunit.cache">
     <testsuites>
         <testsuite name="SyliusMailChimpPlugin Test Suite">
             <directory>tests</directory>
