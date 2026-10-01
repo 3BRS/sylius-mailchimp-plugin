@@ -31,6 +31,14 @@ MailChimp Plugin
     <img src="https://github.com/3BRS/sylius-mailchimp-plugin/blob/master/doc/admin.png?raw=true"/>
 </p>
 
+## Requirements
+
+| Package | Version         |
+|---------|-----------------|
+| PHP     | ^8.2            |
+| Sylius  | ^2.1            |
+| Symfony | ^7.4 \|\| ^8.0  |
+
 ## Installation
 
 1. Run `$ composer require 3brs/sylius-mailchimp-plugin`.
